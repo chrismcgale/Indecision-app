@@ -1,14 +1,41 @@
 class Counter extends React.Component {
-
     constructor(props) {
         super(props);
-        this.handleAddAll = this.handleAddAll.bind(this);
-        this.handleMinusAll = this.handleMinusAll.bind(this);
-        this.handleResetAll = this.handleResetAll.bind(this);
+        this.handleAddOne = this.handleAddOne.bind(this);
+        this.handleMinusOne = this.handleMinusOne.bind(this);
+        this.handleReset = this.handleReset.bind(this);
         this.state = {
             count: 0
         };
     }
+
+    //Must be exactly this spelling
+    componentDidMount() {
+        try {
+            const stringCount = localStorage.getItem("count");
+            const count = parseInt(stringCount, 10);
+            if(!isNaN(count)) {
+                this.setState(() => ({ count }));
+                console.log("Fetching Data");
+            }
+        } catch(e) {
+            //Do nothing if invalid data
+        }
+    }
+
+    //Same
+    componentDidUpdate(prevProps, prevState) {
+        if(prevState.count !== this.state.count) {
+            localStorage.setItem("count", this.state.count);
+            console.log("Saving Data");
+        }
+    }
+
+    //Same
+    componentWillUnmount() {
+        console.log("App Will Unmount")
+    }
+
     handleAddOne() {
         this.setState((prevState) => {
             return {
@@ -17,6 +44,7 @@ class Counter extends React.Component {
             }
         });
     }
+
     handleMinusOne() {
         this.setState((prevState) => {
             return {
@@ -31,6 +59,7 @@ class Counter extends React.Component {
             }
         });
     }
+
     render() {
         return (
             <div>
@@ -43,7 +72,11 @@ class Counter extends React.Component {
     }
 }
 
-ReactDOM.render(<Counter />, document.getElementById("app"))
+// Counter.defaultProps = {
+//     count: 0
+// };
+
+ReactDOM.render(<Counter count={0}/>, document.getElementById("app"))
 
 // let count = 0;
 // const addOne = () => {
