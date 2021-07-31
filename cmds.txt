@@ -1,2 +1,0 @@
-Continuously updates scripts/app.js to react version of the jsx code in src/app.js
-babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch
