@@ -1,16 +1,12 @@
 import React from 'react';
-
-const Header = (props) => (
-        <div className='header'>
-            <div className='container'>
-                <h1 className='header__title'>{props.title}</h1>
-                {props.subTitle && <h2 className='header__subtitle'>{props.subTitle}</h2>}
-            </div>
-        </div>
+import { NavLink } from 'react-router-dom';
+const Header = () => (
+    <header>
+        <h1>Expensify</h1>
+        <NavLink to='/' activeClassName="is-active" exact={true}>Dashboard</NavLink>
+        <NavLink to='/create' activeClassName="is-active">Create Expense</NavLink>
+        <NavLink to='/edit' activeClassName="is-active">Edit Expense</NavLink>
+        <NavLink to='/help' activeClassName="is-active">Help</NavLink>
+    </header>
 );
-
-Header.defaultProps = {
-    title: "Indecision"
-};
-
 export default Header;
